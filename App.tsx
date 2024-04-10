@@ -1,20 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StatusBar } from "expo-status-bar";
+import { Text, View, Button } from "react-native";
+import HomeScreen from "./screens/HomeScreen";
+import PlannerScreen from "./screens/PlannerScreen";
+import Navigation from "./navigation/index";
+import useCachedResources from "./hooks/useCachedResources";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const isLoaded = useCachedResources();
+  console.log(isLoaded);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  if (isLoaded) {
+    return (
+      <>
+        {/* <HomeScreen /> */}
+        {/* <PlannerScreen /> */}
+        <Navigation />
+        <StatusBar style="auto" />
+      </>
+      // <View>
+      //   <HomeScreen />
+      //   <PlannerScreen /
+      //   <StatusBar style="auto" />
+      // </Vi>
+    );
+  } else {
+    return null;
+  }
+}

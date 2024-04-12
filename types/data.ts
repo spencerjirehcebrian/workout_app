@@ -5,7 +5,7 @@ export interface Workout {
   name: string;
   duration: number;
   difficulty: Difficulty;
-  sequence: Array<>;
+  sequence: SequenceItem[];
 }
 export interface SequenceItem {
   slug: string;

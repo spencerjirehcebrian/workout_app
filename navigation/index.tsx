@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Text } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import WorkoutDetailScreen from "../screens/WorkoutDetailScreen";
 export default function Navigation() {
   return (
     <NavigationContainer>
@@ -22,7 +23,13 @@ function RootNavigator() {
       <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, animation: "simple_push" }}
+      />
+      <Stack.Screen
+        name="WorkoutDetail"
+        component={WorkoutDetailScreen}
+        // options={{ headerShown: false }}
+        options={{ title: "Workout Information", animation: "simple_push" }}
       />
     </Stack.Navigator>
   );

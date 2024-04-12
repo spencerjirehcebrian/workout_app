@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Text, View, Pressable, StyleSheet, FlatList } from "react-native";
 import { NativeStackHeaderProps } from "@react-navigation/native-stack";
-import data from "../data.json";
+// import data from "../data.json";
 import { Workout } from "../types/data";
 import WorkoutItem from "../components/WorkoutItem";
 import { NeonText } from "../components/styled/NeonText";
+import { getWorkouts } from "../storage/workout";
+import { useWorkouts } from "../hooks/useWorkouts";
 
 export default function HomeScreen({ navigation }: any) {
   // useEffect(() => {
@@ -17,17 +19,24 @@ export default function HomeScreen({ navigation }: any) {
   //     <Text>{item.difficulty}</Text>
   //   </View>
   // );
-
+  const workouts = useWorkouts();
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Workouts</Text>
       <NeonText style={{ fontSize: 30 }}>Try Them Out</NeonText>
-      {/* <Pressable onPress={() => navigation.navigate("Planner")}>
-        <Text style={{ fontSize: 24 }}>To Planner</Text>
-      </Pressable> */}
       <FlatList
-        data={data as Workout[]}
-        renderItem={WorkoutItem}
+        data={workouts}
+        renderItem={({ item }) => {
+          return (
+            <Pressable
+              onPress={() =>
+                navigation.navigate("WorkoutDetail", { slug: item.slug })
+              }
+            >
+              <WorkoutItem item={item} />
+            </Pressable>
+          );
+        }}
         keyExtractor={(item) => item.slug}
       />
     </View>

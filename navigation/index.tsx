@@ -1,16 +1,28 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import {
+  NavigationContainer,
+  DarkTheme,
+  DefaultTheme,
+} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "../screens/HomeScreen";
 import PlannerScreen from "../screens/PlannerScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Text } from "react-native";
+import { ColorSchemeName, Text } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import WorkoutDetailScreen from "../screens/WorkoutDetailScreen";
-export default function Navigation() {
+
+export default function Navigation({
+  colorScheme,
+}: {
+  colorScheme: ColorSchemeName;
+}) {
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      // theme={colorScheme === "light" ? DefaultTheme : DarkTheme}
+      theme={DefaultTheme}
+    >
       <RootNavigator />
     </NavigationContainer>
   );
@@ -21,7 +33,7 @@ function RootNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Root"
+        name="Home"
         component={BottomTabNavigator}
         options={{ headerShown: false, animation: "simple_push" }}
       />
@@ -38,9 +50,9 @@ function RootNavigator() {
 const BottomTab = createBottomTabNavigator();
 function BottomTabNavigator() {
   return (
-    <BottomTab.Navigator initialRouteName="Home">
+    <BottomTab.Navigator initialRouteName="Home Page">
       <BottomTab.Screen
-        name="Home"
+        name="Home Page"
         component={HomeScreen}
         options={{
           // headerShown: false,

@@ -11,10 +11,15 @@ import { PressableText } from "../../components/styled/PressableText";
 
 type ModalProps = {
   activator?: FunctionComponent<{ handleOpen: () => void }>;
-  children: ReactNode;
+  children: FunctionComponent<{
+    handleOpen: () => void;
+    handleClose: () => void;
+  }>;
 };
 export function Modal({ activator: Activator, children }: ModalProps) {
   const [isModalVisible, setModalVisible] = useState(false);
+  const handleOpen = () => setModalVisible(true);
+  const handleClose = () => setModalVisible(false);
   return (
     <>
       <ReactModal
@@ -23,7 +28,9 @@ export function Modal({ activator: Activator, children }: ModalProps) {
         animationType="slide"
       >
         <View style={styles.centerView}>
-          <View style={styles.contentView}>{children}</View>
+          <View style={styles.contentView}>
+            {children({ handleOpen, handleClose })}
+          </View>
 
           <PressableText
             onPress={() => setModalVisible(false)}
@@ -32,9 +39,9 @@ export function Modal({ activator: Activator, children }: ModalProps) {
         </View>
       </ReactModal>
       {Activator ? (
-        <Activator handleOpen={() => setModalVisible(true)} />
+        <Activator handleOpen={handleOpen} />
       ) : (
-        <PressableText onPress={() => setModalVisible(true)} text="Open" />
+        <PressableText onPress={() => handleOpen()} text="Open" />
       )}
     </>
   );

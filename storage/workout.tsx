@@ -24,3 +24,10 @@ export const getWorkoutBySlug = async (slug: string): Promise<Workout> => {
   const workout = workouts.filter((w) => w.slug === slug)[0];
   return workout;
 };
+
+export const storeWorkout = async (newWorkout: Workout): Promise<boolean> => {
+  const workouts = await getWorkouts();
+  console.log(workouts);
+  await storeData("workout-data", [...workouts, newWorkout]);
+  return true;
+};

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import React from "react";
 import { Text, View, Pressable, StyleSheet, FlatList } from "react-native";
 import { NativeStackHeaderProps } from "@react-navigation/native-stack";
 // import data from "../data.json";
@@ -7,6 +8,7 @@ import WorkoutItem from "../components/WorkoutItem";
 import { NeonText } from "../components/styled/NeonText";
 import { getWorkouts } from "../storage/workout";
 import { useWorkouts } from "../hooks/useWorkouts";
+import { ThemeText } from "../components/styled/Text";
 
 export default function HomeScreen({ navigation }: any) {
   // useEffect(() => {
@@ -22,8 +24,9 @@ export default function HomeScreen({ navigation }: any) {
   const workouts = useWorkouts();
   return (
     <View style={styles.container}>
+      {/* <ThemeText style={styles.header}>Workouts</ThemeText> */}
       <Text style={styles.header}>Workouts</Text>
-      <NeonText style={{ fontSize: 30 }}>Try Them Out</NeonText>
+      {/* <NeonText style={{ fontSize: 30 }}>Try Them Out</NeonText> */}
       <FlatList
         data={workouts}
         renderItem={({ item }) => {
